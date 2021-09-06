@@ -38,7 +38,7 @@ class TranslatableScope implements Scope
         $this->i18nTable = $model->getI18nTable();
         $this->fallback = $model->getFallbackLocale();
 
-        if (! Str::startsWith($this->table, 'laravel_reserved_')) {
+        if (!Str::startsWith($this->table, 'laravel_reserved_')) {
             $this->createJoin($builder, $model);
             $this->createWhere($builder, $model);
             $this->createSelect($builder, $model);
@@ -74,7 +74,7 @@ class TranslatableScope implements Scope
      */
     protected function getJoinType(Eloquent $model)
     {
-        $innerJoin = ! $model->shouldFallback() && $model->getOnlyTranslated();
+        $innerJoin = !$model->shouldFallback() && $model->getOnlyTranslated();
 
         return $innerJoin ? 'join' : 'leftJoin';
     }
@@ -146,7 +146,7 @@ class TranslatableScope implements Scope
     protected function formatColumns(EloquentBuilder $builder, Eloquent $model)
     {
         $map = function ($field) use ($builder, $model) {
-            if (! $model->shouldFallback()) {
+            if (!$model->shouldFallback()) {
                 return "{$this->i18nTable}.{$field}";
             }
 

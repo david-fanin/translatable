@@ -175,7 +175,7 @@ class Builder extends EloquentBuilder
      * Update values in base table.
      *
      * @param array $values
-     * @param $ids
+     * @param array $ids
      *
      * @return mixed
      */

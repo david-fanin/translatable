@@ -37,6 +37,7 @@ class QueryBuilder extends Builder
      * @param array|mixed $columns
      *
      * @return $this
+     *
      * @throws \Exception
      */
     public function select($columns = ['*'])
@@ -54,6 +55,7 @@ class QueryBuilder extends Builder
      * @param array|mixed $column
      *
      * @return $this
+     *
      * @throws \Exception
      */
     public function addSelect($column)
@@ -71,12 +73,13 @@ class QueryBuilder extends Builder
      * @param $columns
      *
      * @return mixed
+     *
      * @throws \Exception
      */
     protected function qualifyColumns($columns)
     {
         foreach ($columns as &$column) {
-            if (! in_array($column, $this->model->translatableAttributes())) {
+            if (!in_array($column, $this->model->translatableAttributes())) {
                 continue;
             }
 
@@ -100,10 +103,10 @@ class QueryBuilder extends Builder
      * @param string $operator
      * @param mixed $value
      * @param string $boolean
+     *
      * @return Builder|QueryBuilder
      *
      * @throws \InvalidArgumentException
-     *
      * @throws \Exception
      */
     public function where($column, $operator = null, $value = null, $boolean = 'and')
@@ -132,6 +135,7 @@ class QueryBuilder extends Builder
      * @param string $operator
      * @param mixed $value
      * @param string $boolean
+     *
      * @return Builder|QueryBuilder
      *
      * @throws \InvalidArgumentException
@@ -166,19 +170,19 @@ class QueryBuilder extends Builder
         }
 
         // If the given operator is not found in the list of valid operators we will
-        // assume that the developer is just short-cutting the '=' operators and
+        // assume that the developer is just short-cutting the '=' operators, and
         // we will set the operators to '=' and set the values appropriately.
-        if (! in_array(strtolower($operator), $this->operators, true)) {
+        if (!in_array(strtolower($operator), $this->operators, true)) {
             [$value, $operator] = [$operator, '='];
         }
 
         $fallbackColumn = $this->qualifyTranslationColumn($column, true);
         $column = $this->qualifyTranslationColumn($column);
 
-        // Finally we'll check whether we need to consider fallback translations. In
+        // Finally, we'll check whether we need to consider fallback translations. In
         // that case we need to create a complex "ifnull" clause, otherwise we can
         // just prepend the translation alias and add the where clause normally.
-        if (! $this->model->shouldFallback() || $column instanceof Closure) {
+        if (!$this->model->shouldFallback() || $column instanceof Closure) {
             return $this->where($column, $operator, $value, $boolean);
         }
 
@@ -257,7 +261,7 @@ class QueryBuilder extends Builder
         $fallbackColumn = $this->qualifyTranslationColumn($column, true);
         $column = $this->qualifyTranslationColumn($column);
 
-        if (! $this->model->shouldFallback()) {
+        if (!$this->model->shouldFallback()) {
             return $this->orderBy($column, $direction);
         }
 
